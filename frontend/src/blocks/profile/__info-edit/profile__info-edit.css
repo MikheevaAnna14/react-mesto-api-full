@@ -1,0 +1,11 @@
+.profile__info-edit {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+@media screen and (max-width: 750px) {
+  .profile__info-edit {
+    justify-content: center;
+  }
+}
