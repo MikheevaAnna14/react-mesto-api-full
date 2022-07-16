@@ -12,10 +12,14 @@ function Header({ isLoggedIn, userEmail, onClick }) {
       <img src={HeaderLogo} alt="логотип mesto" className="header__logo" />
       {
         (<>
-          <Route path="/">
+          {isLoggedIn && <Route path="/">
           <p className="header__link header__link_type_email">{userEmail}</p>
           <Link to="/sign-in" className="header__link header__link_type_exit" onClick={handleClick}>Выйти</Link>
-          </Route>
+          </Route>}
+          {/* <Route path="/">
+          <p className="header__link header__link_type_email">{userEmail}</p>
+          <Link to="/sign-in" className="header__link header__link_type_exit" onClick={handleClick}>Выйти</Link>
+          </Route> */}
           <Route path="/sign-in">
             <Link to="/sign-up" className="header__link">Регистрация</Link>
           </Route>

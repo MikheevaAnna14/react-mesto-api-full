@@ -18,17 +18,17 @@ module.exports.login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-      // res.send({ token });
+      res.send({ token });
 
-      // отправим токен, браузер сохранит его в куках
-      res
-        .cookie('token', token, {
-        // token - наш JWT токен, который мы отправляем
-          maxAge: 3600000 * 24 * 7,
-          httpOnly: true,
-          sameSite: true, // добавили опцию защита от CSRF-атаки
-        })
-        .end(); // если у ответа нет тела, можно использовать метод end
+      // // отправим токен, браузер сохранит его в куках
+      // res
+      //   .cookie('token', token, {
+      //   // token - наш JWT токен, который мы отправляем
+      //     maxAge: 3600000 * 24 * 7,
+      //     httpOnly: true,
+      //     sameSite: true, // добавили опцию защита от CSRF-атаки
+      //   })
+      //   .end(); // если у ответа нет тела, можно использовать метод end
     })
     .catch(next);
 };
@@ -53,6 +53,7 @@ module.exports.createUser = (req, res, next) => {
       name: user.name,
       about: user.about,
       avatar: user.avatar,
+      _id: user._id,
     }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -68,13 +69,12 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
-  // const { _id } = req.user;
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователь с указанным id не найден');
       }
-      res.send({ user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -122,7 +122,7 @@ module.exports.updateProfile = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь с указанным id не найден');
       }
-      res.send({ user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
@@ -147,7 +147,7 @@ module.exports.updateAvatar = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь с указанным id не найден');
       }
-      res.send({ user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {

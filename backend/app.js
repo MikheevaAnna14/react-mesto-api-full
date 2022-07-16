@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// require('dotenv').config();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
+// const path = require('path');
+
+// const publicDirectoryPath = path.join(__dirname, 'build');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const signupValidation = require('./middlewares/signupValidation');
@@ -15,26 +17,30 @@ const {
 } = require('./controllers/users');
 
 const auth = require('./middlewares/auth');
+const cors = require('./middlewares/cors');
 
 const routerUsers = require('./routes/users');
 const routerCards = require('./routes/cards');
 const NotFoundError = require('./errors/NotFoundError');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3030 } = process.env;
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+// app.use(express.static(publicDirectoryPath));
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.use(requestLogger);
+app.use(cors);
 app.post('/signup', signupValidation, createUser);
 app.post('/signin', signinValidation, login);
 app.use('/users', auth, routerUsers);
 app.use('/cards', auth, routerCards);
 
+// app.use('*', (req, res, next) => next(new NotFoundError('Несуществующий путь')));
 app.use('*', auth, (req, res, next) => next(new NotFoundError('Несуществующий путь')));
 
 app.use(errorLogger);
@@ -55,8 +61,3 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
-
-// fetch('/posts', {
-//   method: 'GET',
-//   credentials: 'include', // теперь куки посылаются вместе с запросом
-// });

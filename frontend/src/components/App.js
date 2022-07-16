@@ -35,11 +35,13 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    api.getInitialCards()
+    if (isLoggedIn) {
+      api.getInitialCards()
       .then((res) => {
         setCards(res);
       })
       .catch(err => console.log("Ошибка:", err));
+    }
   }, [])
 
   useEffect(() => {
@@ -55,9 +57,20 @@ function App() {
     }
   }, [history])
 
+  useEffect(() => {
+    let jwt = localStorage.getItem('token');
+    if (jwt) {
+      api.getProfile()
+      .then((res) => {
+        setCurrentUser(res)
+      })
+      .catch(err => console.log("Ошибка:", err));
+    }
+  }, [])
+
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -78,17 +91,11 @@ function App() {
     .catch(err => console.log("Не удалось удалить карточку:", err))
   }
 
-  useEffect(() => {
-    api.getProfile()
-      .then((res) => {
-        setCurrentUser(res)
-      })
-      .catch(err => console.log("Ошибка:", err));
-  }, [])
-
-  function handleUpdateUser({name, about}) {
+  function handleUpdateUser({ name, about }) {
+    console.log('handleUpdateUser1', name, about);
     api.redactProfile(name, about)
       .then((res) => {
+        console.log('handleUpdateUser2 res', res);
         setCurrentUser(res)
         closeAllPopups()
       })
@@ -96,17 +103,23 @@ function App() {
   }
 
   function handleUpdateAvatar(avatar) {
-    api.editAvatar(avatar) 
+    api.editAvatar(avatar)
       .then((res) => {
+        console.log('res', res);
+        console.log('res.avatar', res.avatar);
         setCurrentUser(res)
         closeAllPopups()
       })
       .catch(err => console.log("Не удалось изменить аватар:", err));
   }
 
-  function handleAddPlaceSubmit({name, link}) {
+  function handleAddPlaceSubmit({ name, link }) {
+    console.log('name link', name, link);
+    const jwt = localStorage.getItem('token');
+    console.log('jwt token', jwt);
     api.addCard(name, link)
       .then((res) => {
+        console.log('res', res);
         setCards([res, ...cards]); 
         closeAllPopups()
       })
@@ -116,9 +129,12 @@ function App() {
   function handleRegisterSubmit(email, password) {
     auth.registration(email, password)
       .then((res) => {
+        console.log('handleRegisterSubmit', res);
         if(res) {
           setIsInfoTooltip(true);
           setIsRegister(true);
+          setCurrentUser(res);
+          setUserEmail(email);
           history.push('/sign-in');
         }
       })
@@ -171,6 +187,7 @@ function App() {
   function onSignOut() {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
+    setCurrentUser({});
     history.push('/sign-in');
   }
 

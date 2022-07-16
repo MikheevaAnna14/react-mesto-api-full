@@ -14,14 +14,21 @@ class Api {
 
   getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers
+      credentials: 'include',  // теперь куки посылаются вместе с запросом
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
     })
     .then(this._checkResponse)
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
     })
     .then(this._checkResponse)
   }
@@ -29,7 +36,10 @@ class Api {
   redactProfile(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name,
         about
@@ -39,9 +49,14 @@ class Api {
   }
 
   addCard(name, link) {
+    console.log('api name link', name, link);
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._headers,
+      credentials: 'include',   // теперь куки посылаются вместе с запросом
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name,
         link
@@ -53,7 +68,10 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
       })
     .then(this._checkResponse)
   }
@@ -62,13 +80,19 @@ class Api {
     if (Liked) {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: 'PUT',
-        headers: this._headers
+        headers: {
+          'authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
         })
       .then(this._checkResponse)
     } else {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: 'DELETE',
-        headers: this._headers
+        headers: {
+          'authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
         })
       .then(this._checkResponse)
     }
@@ -77,7 +101,10 @@ class Api {
   editAvatar({ avatar }) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         avatar
       })
@@ -87,9 +114,11 @@ class Api {
 };
 
 export const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
+  // baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
+  baseUrl: 'http://localhost:3030',
   headers: {
-    authorization: 'f7742f99-02b0-478a-9515-03ad0f37b4e8',
+    // authorization: 'f7742f99-02b0-478a-9515-03ad0f37b4e8',
+    'authorization': `Bearer ${localStorage.getItem('token')}`,
     'Content-Type': 'application/json'
   }
 }); 
