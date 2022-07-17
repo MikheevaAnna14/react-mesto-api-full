@@ -1,15 +1,16 @@
-const DEFAULT_ALLOWED_METHODS = 'GET, PUT, PATCH, POST, DELETE';
+const DEFAULT_ALLOWED_METHODS = 'GET, HEAD, PUT, PATCH, POST, DELETE';
 
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  // 'https://praktikum.tk',
-  // 'http://praktikum.tk',
-  'localhost:3030',
-  'http://localhost:3030',
+  'localhost:3000',
+  'http://localhost:3000',
+  'mesto.annam.nomoredomains.xyz',
+  'http://mesto.annam.nomoredomains.xyz',
+  'https://mesto.annam.nomoredomains.xyz',
 ];
 
 module.exports = (req, res, next) => {
-  const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
+  const { origin } = req.headers;
   const { method } = req;
   const requestHeaders = req.headers['access-control-request-headers'];
   res.header('Access-Control-Allow-Credentials', true);
