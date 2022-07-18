@@ -160,7 +160,6 @@ function App() {
       })
       .catch(err => {
         console.log("Ошибка регистрации:", err );
-        setIsRegister(false);
         setIsInfoTooltip(true);
       })
   }
@@ -182,7 +181,7 @@ function App() {
       })
       .catch(err => {
         console.log("Ошибка авторизации:", err );
-
+        setIsRegister(false);
         setIsInfoTooltip(true);
       })
   }
