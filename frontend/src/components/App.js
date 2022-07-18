@@ -38,12 +38,18 @@ function App() {
     let jwt = localStorage.getItem('token');
     if(jwt) {
       setIsLoggedIn(true);
-      api.getProfile()
+      auth.getUserInfo(jwt)
         .then((res) => {
-          console.log('getProfile- res', res);
+          console.log('getUserinfo res', res);
           setCurrentUser(res)
           history.push('/')
         .catch(err => console.log("Ошибка:", err));
+      // api.getProfile()
+      //   .then((res) => {
+      //     console.log('getProfile- res', res);
+      //     setCurrentUser(res)
+      //     history.push('/')
+      //   .catch(err => console.log("Ошибка:", err));
       api.getInitialCards()
         .then((res) => {
           setCards(res);
