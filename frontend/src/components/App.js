@@ -44,12 +44,6 @@ function App() {
           setCurrentUser(res)
           history.push('/')
         .catch(err => console.log("Ошибка:", err));
-      // api.getProfile()
-      //   .then((res) => {
-      //     console.log('getProfile- res', res);
-      //     setCurrentUser(res)
-      //     history.push('/')
-      //   .catch(err => console.log("Ошибка:", err));
       api.getInitialCards()
         .then((res) => {
           setCards(res);
@@ -166,6 +160,7 @@ function App() {
       })
       .catch(err => {
         console.log("Ошибка регистрации:", err );
+        setIsRegister(false);
         setIsInfoTooltip(true);
       })
   }
@@ -177,16 +172,17 @@ function App() {
           localStorage.setItem('token', res.token);
           setUserEmail(email);
           setIsLoggedIn(true);
-          auth.getUserInfo(res.token)                /////////////////////////////////
-            .then((res) => {                             /////////////////////
-              setCurrentUser(res)                      //////////////////////////
-            })                               ////////////////////////////////////
-            .catch(err => console.log("Ошибка:", err));     /////////////////////////////////
+          auth.getUserInfo(res.token)                
+            .then((res) => {                            
+              setCurrentUser(res)                      
+            })                               
+            .catch(err => console.log("Ошибка:", err));     
           history.push('/');
         }
       })
       .catch(err => {
         console.log("Ошибка авторизации:", err );
+
         setIsInfoTooltip(true);
       })
   }
@@ -218,6 +214,7 @@ function App() {
   function onSignOut() {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
+    setIsRegister(false);
     setCurrentUser({});
     history.push('/sign-in');
   }
