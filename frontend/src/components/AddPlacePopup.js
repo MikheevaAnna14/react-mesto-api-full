@@ -16,6 +16,8 @@ function AddPlacePopup(props) {
   function handleSubmit(event) {
     event.preventDefault();
     props.onAddPlace({ name, link })
+    setName('');
+    setLink('');
   }
   
   return(
