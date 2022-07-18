@@ -43,13 +43,13 @@ function App() {
           console.log('getUserinfo res', res);
           setCurrentUser(res)
           history.push('/')
+        })
         .catch(err => console.log("Ошибка:", err));
       api.getInitialCards()
         .then((res) => {
           setCards(res);
         })
         .catch(err => console.log("Ошибка:", err));
-      })
     }
   }, [history])
 
@@ -171,11 +171,11 @@ function App() {
           localStorage.setItem('token', res.token);
           setUserEmail(email);
           setIsLoggedIn(true);
-          auth.getUserInfo(res.token)                
-            .then((res) => {                            
-              setCurrentUser(res)                      
-            })                               
-            .catch(err => console.log("Ошибка:", err));     
+          // auth.getUserInfo(res.token)                
+          //   .then((res) => {                            
+          //     setCurrentUser(res)                      
+          //   })                               
+          //   .catch(err => console.log("Ошибка:", err));     
           history.push('/');
         }
       })
