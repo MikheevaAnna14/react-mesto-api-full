@@ -1,6 +1,6 @@
 // const baseURL = 'https://auth.nomoreparties.co';
 // const baseURL = 'http://localhost:3000';
-const baseURL = 'http://api.mesto.annam.nomoredomains.xyz';
+const baseURL = 'http://api.mesto.annam.nomoredom.nomoredomains.xyz';
 
 const checkResponse = (res) => {
   if (res.ok) {

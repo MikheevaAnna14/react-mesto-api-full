@@ -116,7 +116,7 @@ class Api {
 export const api = new Api({
   // baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
   // baseUrl: 'http://localhost:3000',
-  baseUrl: 'http://api.mesto.annam.nomoredomains.xyz',
+  baseUrl: 'http://api.mesto.annam.nomoredom.nomoredomains.xyz',
   headers: {
     // authorization: 'f7742f99-02b0-478a-9515-03ad0f37b4e8',
     'authorization': `Bearer ${localStorage.getItem('token')}`,
