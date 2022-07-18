@@ -4,18 +4,22 @@ import IconClose from '../images/Close_Icon.svg';
 function PopupWithForm (props) {
   const isOpen = props.isOpen ? "popup_opened" : "";
 
-  React.useEffect((props) => {           
+  // React.useEffect(() => {           
     function closeEscPopup(event) {
       if(!isOpen) return;
-      if(event.key === 'Escape') {
-        props.onClose();
+      if(isOpen) {
+      console.log('event.target, event.key', event.target, event.key)
       }
+      // if(event.key === 'Escape') {
+      //   props.onClose();
+      // }
     }
-    document.addEventListener('keydown', closeEscPopup());
-    return () => {
-      document.removeEventListener('keydown', closeEscPopup());
-    }
-  }, [props]);
+  //   document.addEventListener('keydown', closeEscPopup());
+  //   return () => {
+  //     document.removeEventListener('keydown', closeEscPopup());
+  //   }
+  // }, [props]);
+  closeEscPopup();
     
   return(
     <div className={`popup ${isOpen}`} id={`popup-${props.name}`}>
