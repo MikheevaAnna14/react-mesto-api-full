@@ -12,12 +12,12 @@ function PopupWithForm (props) {
     }
   }
 
-  React.useEffect(() => {           
+  React.useEffect(() => {   
     document.addEventListener('keydown', closeByEsc);
     return () => {
       document.removeEventListener('keydown', closeByEsc);
     }
-  }, [props.isOpen, props.onClose]);
+  }, [props.isOpen]);
     
   return(
     <div className={`popup ${isOpen}`} id={`popup-${props.name}`}>
