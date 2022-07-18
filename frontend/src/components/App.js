@@ -177,7 +177,11 @@ function App() {
           localStorage.setItem('token', res.token);
           setUserEmail(email);
           setIsLoggedIn(true);
-          auth.getUserInfo(res.token);      /////////////////////////////////
+          auth.getUserInfo(res.token)                /////////////////////////////////
+            .then((res) => {                             /////////////////////
+              setCurrentUser(res)                      //////////////////////////
+            })                               ////////////////////////////////////
+            .catch(err => console.log("Ошибка:", err));     /////////////////////////////////
           history.push('/');
         }
       })
