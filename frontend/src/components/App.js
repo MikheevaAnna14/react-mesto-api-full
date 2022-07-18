@@ -139,7 +139,7 @@ function App() {
     console.log('jwt token', jwt);
     api.addCard(name, link)
       .then((res) => {
-        console.log('res', res);
+        console.log('res then addCard', res);
         setCards([res, ...cards]); 
         closeAllPopups()
       })
