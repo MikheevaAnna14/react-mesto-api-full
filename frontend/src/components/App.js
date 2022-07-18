@@ -53,41 +53,6 @@ function App() {
     }
   }, [history])
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     api.getInitialCards()
-  //     .then((res) => {
-  //       setCards(res);
-  //     })
-  //     .catch(err => console.log("Ошибка:", err));
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   let jwt = localStorage.getItem('token');
-  //   if(jwt) {
-  //   auth.getUserInfo(jwt)
-  //     // .then(({data}) => {
-  //     .then(res => {
-  //       setIsLoggedIn(true);
-  //       setUserEmail(res.email)
-  //       history.push('/')
-  //     })
-  //     .catch(err => console.log("Ошибка:", err));
-  //   }
-  // }, [history])
-
-  // useEffect(() => {
-  //   let jwt = localStorage.getItem('token');
-  //   if (jwt) {
-  //     api.getProfile()
-  //     .then((res) => {
-  //       setCurrentUser(res)
-  //     })
-  //     .catch(err => console.log("Ошибка:", err));
-  //   }
-  // }, [])
-
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i === currentUser._id);
@@ -170,12 +135,7 @@ function App() {
         if(res) {
           localStorage.setItem('token', res.token);
           setUserEmail(email);
-          setIsLoggedIn(true);
-          // auth.getUserInfo(res.token)                
-          //   .then((res) => {                            
-          //     setCurrentUser(res)                      
-          //   })                               
-          //   .catch(err => console.log("Ошибка:", err));     
+          setIsLoggedIn(true);   
           history.push('/');
         }
       })

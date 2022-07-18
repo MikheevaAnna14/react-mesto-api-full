@@ -7,6 +7,7 @@ function PopupWithForm (props) {
   const closeByEsc = (event) => {
     if(event.key === 'Escape') {
       console.log(props)
+      console.log("-----------------------------------------------------------------")
       props.onClose();
     }
   }
