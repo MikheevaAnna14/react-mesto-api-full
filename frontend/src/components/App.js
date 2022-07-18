@@ -35,38 +35,58 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    if (isLoggedIn) {
-      api.getInitialCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch(err => console.log("Ошибка:", err));
-    }
-  }, [])
-
-  useEffect(() => {
     let jwt = localStorage.getItem('token');
     if(jwt) {
-    auth.getUserInfo(jwt)
-      .then(({data}) => {
-        setIsLoggedIn(true);
-        setUserEmail(data.email)
-        history.push('/')
+      setIsLoggedIn(true);
+      api.getProfile()
+        .then((res) => {
+          console.log('getProfile- res', res);
+          setCurrentUser(res)
+          history.push('/')
+        .catch(err => console.log("Ошибка:", err));
+      api.getInitialCards()
+        .then((res) => {
+          setCards(res);
+        })
+        .catch(err => console.log("Ошибка:", err));
       })
-      .catch(err => console.log("Ошибка:", err));
     }
   }, [history])
 
-  useEffect(() => {
-    let jwt = localStorage.getItem('token');
-    if (jwt) {
-      api.getProfile()
-      .then((res) => {
-        setCurrentUser(res)
-      })
-      .catch(err => console.log("Ошибка:", err));
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     api.getInitialCards()
+  //     .then((res) => {
+  //       setCards(res);
+  //     })
+  //     .catch(err => console.log("Ошибка:", err));
+  //   }
+  // }, [])
+
+  // useEffect(() => {
+  //   let jwt = localStorage.getItem('token');
+  //   if(jwt) {
+  //   auth.getUserInfo(jwt)
+  //     // .then(({data}) => {
+  //     .then(res => {
+  //       setIsLoggedIn(true);
+  //       setUserEmail(res.email)
+  //       history.push('/')
+  //     })
+  //     .catch(err => console.log("Ошибка:", err));
+  //   }
+  // }, [history])
+
+  // useEffect(() => {
+  //   let jwt = localStorage.getItem('token');
+  //   if (jwt) {
+  //     api.getProfile()
+  //     .then((res) => {
+  //       setCurrentUser(res)
+  //     })
+  //     .catch(err => console.log("Ошибка:", err));
+  //   }
+  // }, [])
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -151,7 +171,7 @@ function App() {
           localStorage.setItem('token', res.token);
           setUserEmail(email);
           setIsLoggedIn(true);
-          auth.getUserInfo(res.token);      /////////////////////////////////
+          // auth.getUserInfo(res.token);      /////////////////////////////////
           history.push('/');
         }
       })
