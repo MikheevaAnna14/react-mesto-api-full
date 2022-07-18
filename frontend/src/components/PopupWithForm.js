@@ -3,12 +3,15 @@ import IconClose from '../images/Close_Icon.svg';
 
 function PopupWithForm (props) {
   const isOpen = props.isOpen ? "popup_opened" : "";
+  console.log('PopupWithFormStart')
   console.log(props)
   console.log('-----')
 
   React.useEffect(() => {  
+    if(!props.isOpen) return;
     function closeByEsc (event) {
       if(event.key === 'Escape') {
+        console.log('Closing popup')
         console.log(props)
         props.onClose();
       }
