@@ -37,11 +37,7 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    // let jwt = localStorage.getItem('token');
-    // if(jwt) {
     if(isLoggedIn) {
-      // setIsLoggedIn(true);
-      // auth.getUserInfo(jwt)
       auth.getUserInfo()
         .then((res) => {
           setCurrentUser(res)
@@ -54,7 +50,6 @@ function App() {
         })
         .catch(err => console.log("Ошибка:", err));
     }
-  // }, [history])
 }, [isLoggedIn, history])
 
   function handleCardLike(card) {
@@ -84,7 +79,6 @@ function App() {
   function handleUpdateUser({ name, about }) {
     api.redactProfile(name, about)
       .then((res) => {
-        console.log('handleUpdateUser2 res', res);
         setCurrentUser(res)
         closeAllPopups()
       })
@@ -101,7 +95,6 @@ function App() {
   }
 
   function handleAddPlaceSubmit({ name, link }) {
-    // const jwt = localStorage.getItem('token');
     api.addCard(name, link)
       .then((res) => {
         setCards([res, ...cards]); 
@@ -131,7 +124,6 @@ function App() {
     auth.autorization(email, password)
       .then((res) => {
         if(res) {
-          // localStorage.setItem('token', res.token);
           setUserEmail(email);
           setIsLoggedIn(true);   
           history.push('/');
@@ -175,7 +167,6 @@ function App() {
   }
 
   function onSignOut() {
-    // localStorage.removeItem('token');
     auth.signout()
       .then(res => console.log(res.send))
       .catch(err => {

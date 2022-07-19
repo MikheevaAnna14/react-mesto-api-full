@@ -16,7 +16,6 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       credentials: 'include',  // теперь куки посылаются вместе с запросом
       headers: {
-        // 'authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       }
     })
@@ -27,7 +26,6 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       credentials: 'include',   // теперь куки посылаются вместе с запросом
       headers: {
-        // 'authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       }
     })
@@ -39,7 +37,6 @@ class Api {
       method: 'PATCH',
       credentials: 'include',   // теперь куки посылаются вместе с запросом
       headers: {
-        // 'authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -56,7 +53,6 @@ class Api {
       method: 'POST',
       credentials: 'include',   // теперь куки посылаются вместе с запросом
       headers: {
-        // 'authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -72,7 +68,6 @@ class Api {
       method: 'DELETE',
       credentials: 'include',   // теперь куки посылаются вместе с запросом
       headers: {
-        // 'authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       }
       })
@@ -85,7 +80,6 @@ class Api {
         method: 'PUT',
         credentials: 'include',   // теперь куки посылаются вместе с запросом
         headers: {
-          // 'authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
         }
         })
@@ -95,7 +89,6 @@ class Api {
         method: 'DELETE',
         credentials: 'include',   // теперь куки посылаются вместе с запросом
         headers: {
-          // 'authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
         }
         })
@@ -108,7 +101,6 @@ class Api {
       method: 'PATCH',
       credentials: 'include',   // теперь куки посылаются вместе с запросом
       headers: {
-        // 'authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -122,7 +114,7 @@ class Api {
 export const api = new Api({
   // baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
   // baseUrl: 'http://localhost:3000',
-  baseUrl: 'http://api.mesto.annam.nomoredom.nomoredomains.xyz',
+  baseUrl: 'https://api.mesto.annam.nomoredom.nomoredomains.xyz',
   headers: {
     // authorization: 'f7742f99-02b0-478a-9515-03ad0f37b4e8',
     // 'authorization': `Bearer ${localStorage.getItem('token')}`,

@@ -1,6 +1,6 @@
 // const baseURL = 'https://auth.nomoreparties.co';
 // const baseURL = 'http://localhost:3000';
-const baseURL = 'http://api.mesto.annam.nomoredom.nomoredomains.xyz';
+const baseURL = 'https://api.mesto.annam.nomoredom.nomoredomains.xyz';
 
 const checkResponse = (res) => {
   if (res.ok) {
@@ -33,25 +33,12 @@ export const autorization = (email, password) => {
   .then((res) => checkResponse(res)) 
 }; 
 
-// export const getUserInfo = (jwt) => {
-//   return fetch(`${baseURL}/users/me`, {
-//     method: 'GET',
-//     credentials: 'include',  // теперь куки посылаются вместе с запросом
-//     headers: {
-//     'Content-Type': 'application/json',
-//     // authorization: `Bearer ${jwt}`
-//     },
-//   })
-//   .then((res) => checkResponse(res)) 
-// };
-
 export const getUserInfo = () => {
   return fetch(`${baseURL}/users/me`, {
     method: 'GET',
     credentials: 'include',  // теперь куки посылаются вместе с запросом
     headers: {
     'Content-Type': 'application/json',
-    // authorization: `Bearer ${jwt}`
     },
   })
   .then((res) => checkResponse(res)) 
