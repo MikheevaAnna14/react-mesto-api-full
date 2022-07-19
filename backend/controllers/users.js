@@ -26,9 +26,10 @@ module.exports.login = (req, res, next) => {
         // token - наш JWT токен, который мы отправляем
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
-          sameSite: true, // добавили опцию защита от CSRF-атаки
+          // sameSite: true, // добавили опцию защита от CSRF-атаки
         })
-        .end(); // если у ответа нет тела, можно использовать метод end
+        .send({ message: 'Куки!!!' });
+        // .end(); // если у ответа нет тела, можно использовать метод end
     })
     .catch(next);
 };
