@@ -27,7 +27,8 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           // sameSite: true, // добавили опцию защита от CSRF-атаки
         })
-        .end(); // если у ответа нет тела, можно использовать метод end
+        .send(user);
+      // .end(); // если у ответа нет тела, можно использовать метод end
     })
     .catch(next);
 };
