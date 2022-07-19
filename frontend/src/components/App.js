@@ -167,11 +167,7 @@ function App() {
   }
 
   function onSignOut() {
-    auth.signout()
-      .then(res => console.log(res.send))
-      .catch(err => {
-        console.log("Ошибка регистрации:", err );
-      });
+    auth.signout();
     setIsLoggedIn(false);
     setIsRegister(false);
     setCurrentUser({});

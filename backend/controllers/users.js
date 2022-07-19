@@ -18,17 +18,13 @@ module.exports.login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-
-      // отправим токен, браузер сохранит его в куках
       res
         .cookie('token', token, {
-        // token - наш JWT токен, который мы отправляем
           maxAge: 3600000 * 24 * 7,
           httpOnly: true,
-          // sameSite: true, // добавили опцию защита от CSRF-атаки
+          // sameSite: true,
         })
         .send(user);
-      // .end(); // если у ответа нет тела, можно использовать метод end
     })
     .catch(next);
 };
