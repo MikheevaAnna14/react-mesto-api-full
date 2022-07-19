@@ -3,20 +3,13 @@ import IconClose from '../images/Close_Icon.svg';
 
 function PopupWithForm (props) {
   const isOpen = props.isOpen ? "popup_opened" : "";
-  console.log('PopupWithFormStart')
-  console.log(props)
-  console.log('-----')
 
   React.useEffect(() => {  
-    if(!props.isOpen) return;
     function closeByEsc (event) {
       if(event.key === 'Escape') {
-        console.log('Closing popup')
-        console.log(props)
         props.onClose();
       }
     }
-
     document.addEventListener('keydown', closeByEsc);
     return () => {
       document.removeEventListener('keydown', closeByEsc);
@@ -30,7 +23,6 @@ function PopupWithForm (props) {
         <button type="button" className="popup__close" onClick={props.onClose}>
           <img src={IconClose} className="popup__close-icon" alt="иконка крестик" />
         </button>
-        {/* <form className="popup__container-info" id="popupProfileForm" name="regform" onSubmit={props.onSubmit}> */}
         <form className="popup__container-info" name="regform" onSubmit={props.onSubmit}>
           <h2 className="popup__container-heading">{props.title}</h2>
           {props.children}
@@ -42,11 +34,3 @@ function PopupWithForm (props) {
 }
 
 export default PopupWithForm;
-
-// setEventListeners() {
-//   this._popup.addEventListener('click', (event) => {
-//     if (event.target.classList.contains('popup__overlay') || event.target.classList.contains('popup__close-icon')) {
-//       this.close();
-//     }
-//   });
-// }

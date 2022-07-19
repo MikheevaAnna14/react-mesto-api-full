@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
+// import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -14,12 +14,14 @@ import ProtectedRoute from './ProtectedRoute';
 import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
+import DeleteCardPopup from './DeleteCardPopup';
 import * as auth from "../utils/auth";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isInfoTooltip, setIsInfoTooltip] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({
@@ -77,7 +79,6 @@ function App() {
   }
 
   function handleUpdateUser({ name, about }) {
-    console.log('handleUpdateUser1', name, about);
     api.redactProfile(name, about)
       .then((res) => {
         console.log('handleUpdateUser2 res', res);
@@ -99,9 +100,7 @@ function App() {
   }
 
   function handleAddPlaceSubmit({ name, link }) {
-    console.log('name link', name, link);
-    const jwt = localStorage.getItem('token');
-    console.log('jwt token', jwt);
+    // const jwt = localStorage.getItem('token');
     api.addCard(name, link)
       .then((res) => {
         console.log('res then addCard', res);
@@ -162,10 +161,15 @@ function App() {
     setSelectedCard(card)
   }
 
+  function handleCardDeleteClick () {
+    setIsDeleteCardPopupOpen(true)
+  }
+
   function closeAllPopups () {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setIsDeleteCardPopupOpen(false);
     setIsInfoTooltip(false);
     setSelectedCard({})
   }
@@ -198,7 +202,7 @@ function App() {
               onCardClick={handleCardClick}
               cards={cards}
               handleCardLike={handleCardLike}
-              handleCardDelete={handleCardDelete}
+              handleCardDelete={handleCardDeleteClick}
             />
             <Route exact path="/sign-up">
               <Register 
@@ -226,14 +230,27 @@ function App() {
             onClose= {closeAllPopups}
             onUpdateUser ={handleUpdateUser}
           />
-          <AddPlacePopup isOpen= {isAddPlacePopupOpen} onClose= {closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
-          <PopupWithForm
+          <AddPlacePopup 
+            isOpen= {isAddPlacePopupOpen}
+            onClose= {closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
+          />
+          <DeleteCardPopup
+            isOpen= {isDeleteCardPopupOpen}
+            onClose= {closeAllPopups}
+            onDeleteCard = {handleCardDelete}
+          />
+          {/* <PopupWithForm
             name="delete"
             title="Вы уверены?"
             button="Да"
           >
-          </PopupWithForm>
-          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose= {closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+          </PopupWithForm> */}
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose= {closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
+          />
           <ImagePopup 
             card={selectedCard}
             onClose= {closeAllPopups}
