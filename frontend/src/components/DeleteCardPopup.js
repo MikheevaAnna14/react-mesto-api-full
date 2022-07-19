@@ -3,9 +3,9 @@ import PopupWithForm from "./PopupWithForm";
 
 function DeleteCardPopup(props) {
 
-  function handleSubmit(event) {
+  function handleSubmit(event, card) {
     event.preventDefault();
-    props.onDeleteCard();
+    props.onDeleteCard(card);
   } 
 
   return(
