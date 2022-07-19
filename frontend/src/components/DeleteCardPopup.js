@@ -5,7 +5,7 @@ function DeleteCardPopup(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    props.handleCardDelete();
+    props.onDeleteCard();
   } 
 
   return(

@@ -92,8 +92,6 @@ function App() {
   function handleUpdateAvatar(avatar) {
     api.editAvatar(avatar)
       .then((res) => {
-        console.log('res', res);
-        console.log('res.avatar', res.avatar);
         setCurrentUser(res)
         closeAllPopups()
       })
@@ -104,7 +102,6 @@ function App() {
     // const jwt = localStorage.getItem('token');
     api.addCard(name, link)
       .then((res) => {
-        console.log('res then addCard', res);
         setCards([res, ...cards]); 
         closeAllPopups()
       })
@@ -114,7 +111,6 @@ function App() {
   function handleRegisterSubmit(email, password) {
     auth.registration(email, password)
       .then((res) => {
-        console.log('handleRegisterSubmit', res);
         if(res) {
           setIsInfoTooltip(true);
           setIsRegister(true);
