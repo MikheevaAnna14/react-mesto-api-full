@@ -23,6 +23,7 @@ function App() {
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isInfoTooltip, setIsInfoTooltip] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
+  const [removedCard, setRemovedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({
     avatar: '',
     name: 'Имя',
@@ -158,7 +159,8 @@ function App() {
     setSelectedCard(card)
   }
 
-  function handleCardDeleteClick () {
+  function handleCardDeleteClick (card) {
+    setRemovedCard(card);
     setIsDeleteCardPopupOpen(true)
   }
 
@@ -241,6 +243,7 @@ function App() {
             isOpen= {isDeleteCardPopupOpen}
             onClose= {closeAllPopups}
             onDeleteCard = {handleCardDelete}
+            card={removedCard}
           />
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
