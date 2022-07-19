@@ -13,6 +13,7 @@ const signinValidation = require('./middlewares/signinValitation');
 
 const {
   login,
+  logout,
   createUser,
 } = require('./controllers/users');
 
@@ -37,10 +38,10 @@ app.use(requestLogger);
 app.use(cors);
 app.post('/signup', signupValidation, createUser);
 app.post('/signin', signinValidation, login);
+app.post('/signout', logout);
 app.use('/users', auth, routerUsers);
 app.use('/cards', auth, routerCards);
 
-// app.use('*', (req, res, next) => next(new NotFoundError('Несуществующий путь')));
 app.use('*', auth, (req, res, next) => next(new NotFoundError('Несуществующий путь')));
 
 app.use(errorLogger);

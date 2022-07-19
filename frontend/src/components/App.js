@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-// import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -37,12 +36,13 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    let jwt = localStorage.getItem('token');
-    if(jwt) {
-      setIsLoggedIn(true);
-      auth.getUserInfo(jwt)
+    // let jwt = localStorage.getItem('token');
+    // if(jwt) {
+    if(isLoggedIn) {
+      // setIsLoggedIn(true);
+      // auth.getUserInfo(jwt)
+      auth.getUserInfo()
         .then((res) => {
-          console.log('getUserinfo res', res);
           setCurrentUser(res)
           history.push('/')
         })
@@ -53,7 +53,8 @@ function App() {
         })
         .catch(err => console.log("Ошибка:", err));
     }
-  }, [history])
+  // }, [history])
+}, [isLoggedIn, history])
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -132,7 +133,7 @@ function App() {
     auth.autorization(email, password)
       .then((res) => {
         if(res) {
-          localStorage.setItem('token', res.token);
+          // localStorage.setItem('token', res.token);
           setUserEmail(email);
           setIsLoggedIn(true);   
           history.push('/');
@@ -175,7 +176,12 @@ function App() {
   }
 
   function onSignOut() {
-    localStorage.removeItem('token');
+    // localStorage.removeItem('token');
+    auth.signout()
+      .then(res => console.log(res.send))
+      .catch(err => {
+        console.log("Ошибка регистрации:", err );
+      });
     setIsLoggedIn(false);
     setIsRegister(false);
     setCurrentUser({});
@@ -240,12 +246,6 @@ function App() {
             onClose= {closeAllPopups}
             onDeleteCard = {handleCardDelete}
           />
-          {/* <PopupWithForm
-            name="delete"
-            title="Вы уверены?"
-            button="Да"
-          >
-          </PopupWithForm> */}
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose= {closeAllPopups}
