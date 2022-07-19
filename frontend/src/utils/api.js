@@ -110,10 +110,13 @@ class Api {
   }
 };
 
+const currentBaseUrl = document.location.protocol !== 'https:' ? 'http://api.mesto.annam.nomoredom.nomoredomains.xyz' : 'https://api.mesto.annam.nomoredom.nomoredomains.xyz';
+
 export const api = new Api({
   // baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
   // baseUrl: 'http://localhost:3000',
-  baseUrl: 'https://api.mesto.annam.nomoredom.nomoredomains.xyz',
+  // baseUrl: 'https://api.mesto.annam.nomoredom.nomoredomains.xyz',
+  baseUrl: currentBaseUrl,
   headers: {
     'Content-Type': 'application/json'
   }
