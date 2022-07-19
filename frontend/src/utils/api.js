@@ -25,6 +25,7 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
+      credentials: 'include',   // теперь куки посылаются вместе с запросом
       headers: {
         // 'authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
@@ -36,6 +37,7 @@ class Api {
   redactProfile(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
+      credentials: 'include',   // теперь куки посылаются вместе с запросом
       headers: {
         // 'authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
@@ -68,6 +70,7 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
+      credentials: 'include',   // теперь куки посылаются вместе с запросом
       headers: {
         // 'authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
@@ -80,6 +83,7 @@ class Api {
     if (Liked) {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: 'PUT',
+        credentials: 'include',   // теперь куки посылаются вместе с запросом
         headers: {
           // 'authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
@@ -89,6 +93,7 @@ class Api {
     } else {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: 'DELETE',
+        credentials: 'include',   // теперь куки посылаются вместе с запросом
         headers: {
           // 'authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
@@ -101,6 +106,7 @@ class Api {
   editAvatar({ avatar }) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
+      credentials: 'include',   // теперь куки посылаются вместе с запросом
       headers: {
         // 'authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
