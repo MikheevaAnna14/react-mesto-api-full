@@ -1,6 +1,9 @@
+import { BaseUrl } from "./api";
+
 // const baseURL = 'https://auth.nomoreparties.co';
 // const baseURL = 'http://localhost:3000';
-const baseURL = 'https://api.mesto.annam.nomoredom.nomoredomains.xyz';
+// const baseURL = 'https://api.mesto.annam.nomoredom.nomoredomains.xyz';
+const baseURL = BaseUrl;
 
 const checkResponse = (res) => {
   if (res.ok) {
