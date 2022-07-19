@@ -77,7 +77,8 @@ function App() {
       })
       )
     })
-    .catch(err => console.log("Не удалось удалить карточку:", err))
+    .catch(err => console.log("Не удалось удалить карточку:", err));
+    closeAllPopups()
   }
 
   function handleUpdateUser({ name, about }) {
