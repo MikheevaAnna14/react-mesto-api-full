@@ -24,19 +24,12 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           // sameSite: true,
         })
-        .send(user);
+        .send({ token });
     })
     .catch(next);
 };
 
 module.exports.logout = (req, res) => {
-  // res
-  //   .cookie('token', token, {
-  //     maxAge: -1,
-  //     httpOnly: true,
-  //     sameSite: true, // добавили опцию защита от CSRF-атаки
-  //   })
-  //   .send({ message: 'Вы вышли из приложения' });
   res.clearCookie('token').send({ message: 'Вы вышли из приложения' }).redirect('/signin');
 };
 
