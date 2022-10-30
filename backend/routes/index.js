@@ -10,6 +10,7 @@ const {
   logout,
   createUser,
 } = require('../controllers/users');
+
 const auth = require('../middlewares/auth');
 const NotFoundError = require('../errors/NotFoundError');
 
