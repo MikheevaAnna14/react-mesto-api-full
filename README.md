@@ -29,14 +29,13 @@
 
 
 ## Использованные технологии:
-- HTML,
-- CSS,
-- JavaScript,
-- React.js,
-- Express.js,
-- helmet,
-- Figma,
-- ООП.
+- HTML
+- CSS
+- JavaScript
+- React.js
+- Express.js
+- helmet
+- Figma
   
 Сайт размещен по адресу: https://mesto.annam.nomoredomains.xyz   
 Домен сервера: https://api.mesto.annam.nomoredom.nomoredomains.xyz
